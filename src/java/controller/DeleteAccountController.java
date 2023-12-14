@@ -5,22 +5,19 @@
 
 package controller;
 
-import dal.ProductDBContext;
+import dal.AcountDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
-import model.Product;
 
 /**
  *
  * @author Thanh Hai
  */
-public class HomeController extends HttpServlet {
+public class DeleteAccountController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,13 +31,7 @@ public class HomeController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            ProductDBContext db = new ProductDBContext();
-            List<Product> listOld=db.getAllProductsOld();
-            List<Product> listNew=db.getAllProductsLast();
-            request.setAttribute("listOld", listOld);
-            request.setAttribute("listNew", listNew);
-            request.getSession().setAttribute("urlHistory", "home");
-            request.getRequestDispatcher("home.jsp").forward(request, response);
+           
         }
     } 
 
@@ -55,7 +46,10 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        AcountDBContext adb =  new AcountDBContext();
+        String Id= request.getParameter("pid");
+        adb.deleteAccount(Integer.parseInt(Id));
+        response.sendRedirect("managecustomer");
     } 
 
     /** 

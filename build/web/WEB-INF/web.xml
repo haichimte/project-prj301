@@ -60,6 +60,38 @@
         <servlet-name>DeleteCategoryController</servlet-name>
         <servlet-class>controller.DeleteCategoryController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoadCategoryController</servlet-name>
+        <servlet-class>controller.LoadCategoryController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageCustomerController</servlet-name>
+        <servlet-class>controller.ManageCustomerController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteAccountController</servlet-name>
+        <servlet-class>controller.DeleteAccountController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditAccount</servlet-name>
+        <servlet-class>controller.EditAccount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadAccount</servlet-name>
+        <servlet-class>controller.LoadAccount</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartController</servlet-name>
+        <servlet-class>controller.CartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddToCartController</servlet-name>
+        <servlet-class>controller.AddToCartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckOutController</servlet-name>
+        <servlet-class>controller.CheckOutController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -119,5 +151,37 @@
     <servlet-mapping>
         <servlet-name>DeleteCategoryController</servlet-name>
         <url-pattern>/deletecategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadCategoryController</servlet-name>
+        <url-pattern>/loadcategory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageCustomerController</servlet-name>
+        <url-pattern>/managecustomer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteAccountController</servlet-name>
+        <url-pattern>/deleteaccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditAccount</servlet-name>
+        <url-pattern>/editaccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadAccount</servlet-name>
+        <url-pattern>/loadaccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartController</servlet-name>
+        <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCartController</servlet-name>
+        <url-pattern>/addcart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckOutController</servlet-name>
+        <url-pattern>/checkout</url-pattern>
     </servlet-mapping>
 </web-app>

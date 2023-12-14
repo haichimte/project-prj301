@@ -54,55 +54,57 @@
 
     <!-- Checkout Start -->
     <div class="container-fluid pt-5">
-        <div class="row px-xl-5">
+        <form action="checkout" method="POST">
+              <div class="row px-xl-5">
             <div class="col-lg-8">
                 <div class="mb-4">
-                    <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+                    <h4 class="font-weight-semi-bold mb-4">${sessionScope.acc.user} address</h4>
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label>First Name</label>
-                            <input class="form-control" type="text" placeholder="John">
+                            <input  name="firtName" class="form-control" type="text" placeholder="John" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Last Name</label>
-                            <input class="form-control" type="text" placeholder="Doe">
+                            <input name="lastName"class="form-control" type="text" placeholder="Doe" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>E-mail</label>
-                            <input class="form-control" type="text" placeholder="example@email.com">
+                            <input  name="email" class="form-control" type="email" placeholder="example@email.com">
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Mobile No</label>
-                            <input class="form-control" type="text" placeholder="+123 456 789">
+                            <input name="phone" lass="form-control" type="text" placeholder="+123 456 789">
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Address Line 1</label>
-                            <input class="form-control" type="text" placeholder="123 Street">
+                            <input  name="address"class="form-control" type="text" placeholder="123 Street">
                         </div>
-                        <div class="col-md-6 form-group">
-                            <label>Address Line 2</label>
-                            <input class="form-control" type="text" placeholder="123 Street">
-                        </div>
+                        
                         <div class="col-md-6 form-group">
                             <label>Country</label>
-                            <select class="custom-select">
+                            <select  name="country"class="custom-select">
                                 <option selected>United States</option>
-                                <option>Afghanistan</option>
-                                <option>Albania</option>
-                                <option>Algeria</option>
+                                <option>Viet Nam</option>
+                                <option>Trung Cua</option>
+                                <option>Han Quoc</option>
                             </select>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>City</label>
-                            <input class="form-control" type="text" placeholder="New York">
+                            <input  name="city"class="form-control" type="text" placeholder="New York">
                         </div>
                         <div class="col-md-6 form-group">
                             <label>State</label>
-                            <input class="form-control" type="text" placeholder="New York">
+                            <input  name="state"class="form-control" type="text" placeholder="New York">
                         </div>
                         <div class="col-md-6 form-group">
                             <label>ZIP Code</label>
-                            <input class="form-control" type="text" placeholder="123">
+                            <input  name="zip"class="form-control" type="text" placeholder="123">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Note</label>
+                            <input  name="note"class="form-control" type="text" placeholder="123">
                         </div>
                         <div class="col-md-12 form-group">
                             <div class="custom-control custom-checkbox">
@@ -118,56 +120,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="collapse mb-4" id="shipping-address">
-                    <h4 class="font-weight-semi-bold mb-4">Shipping Address</h4>
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label>First Name</label>
-                            <input class="form-control" type="text" placeholder="John">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Last Name</label>
-                            <input class="form-control" type="text" placeholder="Doe">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>E-mail</label>
-                            <input class="form-control" type="text" placeholder="example@email.com">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Mobile No</label>
-                            <input class="form-control" type="text" placeholder="+123 456 789">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Address Line 1</label>
-                            <input class="form-control" type="text" placeholder="123 Street">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Address Line 2</label>
-                            <input class="form-control" type="text" placeholder="123 Street">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Country</label>
-                            <select class="custom-select">
-                                <option selected>United States</option>
-                                <option>Afghanistan</option>
-                                <option>Albania</option>
-                                <option>Algeria</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>City</label>
-                            <input class="form-control" type="text" placeholder="New York">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>State</label>
-                            <input class="form-control" type="text" placeholder="New York">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>ZIP Code</label>
-                            <input class="form-control" type="text" placeholder="123">
-                        </div>
-                    </div>
-                </div>
+                
+                
             </div>
             <div class="col-lg-4">
                 <div class="card border-secondary mb-5">
@@ -176,22 +130,19 @@
                     </div>
                     <div class="card-body">
                         <h5 class="font-weight-medium mb-3">Products</h5>
+                         <c:forEach items="${carts}" var="C">
                         <div class="d-flex justify-content-between">
-                            <p>Colorful Stylish Shirt 1</p>
-                            <p>$150</p>
+                             <input type="hidden" name="productId" value="${C.value.product.id}"/>
+                            <p>${C.value.product.name}</p>
+                            <p>${C.value.quantity}</p>
+                            <p>${C.value.product.price*C.value.quantity}</p>
+                            
                         </div>
-                        <div class="d-flex justify-content-between">
-                            <p>Colorful Stylish Shirt 2</p>
-                            <p>$150</p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <p>Colorful Stylish Shirt 3</p>
-                            <p>$150</p>
-                        </div>
+                       </c:forEach>
                         <hr class="mt-0">
                         <div class="d-flex justify-content-between mb-3 pt-1">
                             <h6 class="font-weight-medium">Subtotal</h6>
-                            <h6 class="font-weight-medium">$150</h6>
+                            <h6 class="font-weight-medium">$${totalMoney}</h6>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Shipping</h6>
@@ -201,7 +152,7 @@
                     <div class="card-footer border-secondary bg-transparent">
                         <div class="d-flex justify-content-between mt-2">
                             <h5 class="font-weight-bold">Total</h5>
-                            <h5 class="font-weight-bold">$160</h5>
+                            <h5 class="font-weight-bold"> $${totalMoney+10}</h5>
                         </div>
                     </div>
                 </div>
@@ -230,11 +181,16 @@
                         </div>
                     </div>
                     <div class="card-footer border-secondary bg-transparent">
-                        <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</button>
+                        <button  onclick="showSuccessMessage()" id=placeoderButton" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</button>
                     </div>
                 </div>
             </div>
         </div>
+        </form>
+                        <div id="successMessage" style="display:none;">
+    <!-- Nội dung thông báo thành công -->
+    <p>Đơn hàng của bạn đã đặt thành công!</p>
+</div>
     </div>
     <!-- Checkout End -->
 
@@ -244,6 +200,22 @@
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    <script>
+    document.getElementById('placeoderButton').addEventListener('click', function() {
+        // Chuyển hướng đến trang Checkout
+        window.location.href = 'thank.jsp'; // Điều hankchỉnh đường dẫn tùy thuộc vào cấu trúc thư mục của bạn
+    });
+</script>
+<script>
+    function showSuccessMessage() {
+        // Thực hiện các thao tác xử lý đơn hàng ở đây
+        
+        // Hiển thị thông báo thành công
+        document.getElementById('successMessage').style.display = 'block';
+    }
+</script>
+
+
 
 
     <!-- JavaScript Libraries -->

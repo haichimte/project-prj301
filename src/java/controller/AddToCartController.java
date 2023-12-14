@@ -12,15 +12,17 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.servlet.http.HttpSession;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import model.Cart;
 import model.Product;
 
 /**
  *
  * @author Thanh Hai
  */
-public class HomeController extends HttpServlet {
+public class AddToCartController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,13 +36,15 @@ public class HomeController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            ProductDBContext db = new ProductDBContext();
-            List<Product> listOld=db.getAllProductsOld();
-            List<Product> listNew=db.getAllProductsLast();
-            request.setAttribute("listOld", listOld);
-            request.setAttribute("listNew", listNew);
-            request.getSession().setAttribute("urlHistory", "home");
-            request.getRequestDispatcher("home.jsp").forward(request, response);
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet AddToCartController</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet AddToCartController at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     } 
 
@@ -55,7 +59,29 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        int productId = Integer.parseInt(request.getParameter("productId"));
+            //map    productId | cart
+            HttpSession session = request.getSession();
+            Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
+            if (carts == null) {
+                carts = new LinkedHashMap<>();
+            }
+
+            if (carts.containsKey(productId)) {//sản phẩm đã có trên giỏ hàng
+                int oldQuantity = carts.get(productId).getQuantity();
+                carts.get(productId).setQuantity(oldQuantity + 1);
+            } else {//sản phẩm chưa có trên giỏ hàng
+                Product product = new ProductDBContext().getProductById(productId);
+                carts.put(productId, new Cart(product, 1));
+            }
+            //lưu carts lên session
+            session.setAttribute("carts", carts);
+            String urlHistory = (String) session.getAttribute("urlHistory");
+            if (urlHistory == null) {
+                urlHistory = "home";
+            }
+            response.sendRedirect(urlHistory);
+        
     } 
 
     /** 

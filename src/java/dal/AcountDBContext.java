@@ -155,8 +155,10 @@ public class AcountDBContext extends DBContext {
     public static void main(String[] args) {
         try {
                     System.out.println(new AcountDBContext().getAccountById(4));
+                    new AcountDBContext().deleteAccount(46);
 
         } catch (Exception e) {
+            System.out.println("delete failed");
         }
     }
 
@@ -171,6 +173,17 @@ public class AcountDBContext extends DBContext {
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AcountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     public void deleteAccount(int id) {
+        try {
+            String sql = "DELETE FROM [Account]\n"
+                    + "WHERE uID = ? ";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoryDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

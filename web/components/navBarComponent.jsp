@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Hải Store</title>
     </head>
     <body>
             <!-- Topbar Start -->
@@ -68,9 +68,9 @@
                     <i class="fas fa-heart text-primary"></i>
                     <span class="badge">0</span>
                 </a>
-                <a href="" class="btn border">
+                <a href="cart" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
-                    <span class="badge">0</span>
+                    <span class="badge">${sessionScope.carts.size()}</span>
                 </a>
             </div>
         </div>
@@ -117,7 +117,7 @@
                         </div>
                         <a href="manage-product" class="nav-item nav-link">Manage Product</a>
                         <a href="managecategory" class="nav-item nav-link">Manage Category</a>
-                        <a href="" class="nav-item nav-link">Manage User</a>
+                        <a href="managecustomer" class="nav-item nav-link">Manage User</a>
                        
                     </div>
                 </nav>
@@ -136,8 +136,7 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link" data-toggle="dropdown">Edit account <i class="fa fa-angle-down float-right mt-1"></i></a>
                             <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-                                <a href="" class="dropdown-item">Change password</a>
-                                <a href="" class="dropdown-item">Change account</a>
+                               
                             </div>
                         </div>
                         
@@ -162,8 +161,8 @@
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu rounded-0 m-0">
-                                    <a href="cart.jsp" class="dropdown-item">Shopping Cart</a>
-                                    <a href="checkout.jsp" class="dropdown-item">Checkout</a>
+                                    <a href="cart" class="dropdown-item">Shopping Cart</a>
+                                    <a href="checkout" class="dropdown-item">Checkout</a>
                                 </div>
                             </div>
                             <a href="contact.jsp" class="nav-item nav-link">Contact</a>
@@ -189,7 +188,7 @@
                                 <div class="p-3" style="max-width: 700px;">
                                     <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
                                     <h3 class="display-4 text-white font-weight-semi-bold mb-4">Fashionable Dress</h3>
-                                    <a href="shop.jsp" class="btn btn-light py-2 px-3">Shop Now</a>
+                                    <a href="shop" class="btn btn-light py-2 px-3">Shop Now</a>
                                 </div>
                             </div>
                         </div>
@@ -199,7 +198,7 @@
                                 <div class="p-3" style="max-width: 700px;">
                                     <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
                                     <h3 class="display-4 text-white font-weight-semi-bold mb-4">Reasonable Price</h3>
-                                    <a href="shop.jsp" class="btn btn-light py-2 px-3">Shop Now</a>
+                                    <a href="shop" class="btn btn-light py-2 px-3">Shop Now</a>
                                 </div>
                             </div>
                         </div>

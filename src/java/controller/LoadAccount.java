@@ -1,26 +1,25 @@
+package controller;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
 
-import dal.ProductDBContext;
+import dal.AcountDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
-import model.Product;
+import model.Account;
 
 /**
  *
  * @author Thanh Hai
  */
-public class HomeController extends HttpServlet {
+public class LoadAccount extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,13 +33,15 @@ public class HomeController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            ProductDBContext db = new ProductDBContext();
-            List<Product> listOld=db.getAllProductsOld();
-            List<Product> listNew=db.getAllProductsLast();
-            request.setAttribute("listOld", listOld);
-            request.setAttribute("listNew", listNew);
-            request.getSession().setAttribute("urlHistory", "home");
-            request.getRequestDispatcher("home.jsp").forward(request, response);
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet LoadAccount</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet LoadAccount at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     } 
 
@@ -55,8 +56,13 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
-    } 
+        String pid = request.getParameter("pid");
+        Account account = new AcountDBContext().getAccountById(Integer.parseInt(pid));
+        request.setAttribute("account", account);
+       
+        request.getRequestDispatcher("EditAccount.jsp").forward(request, response);
+    }
+     
 
     /** 
      * Handles the HTTP <code>POST</code> method.

@@ -1,12 +1,10 @@
-<%-- 
-    Document   : ManagerCategory
-    Created on : Mar 16, 2022, 10:04:31 PM
-    Author     : Admin
---%>
+
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -20,6 +18,12 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link href="css/ManagerProduct.css" rel="stylesheet" type="text/css"/>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+            rel="stylesheet"
+            />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
         <style>
             img{
                 width: 200px;
@@ -30,12 +34,12 @@
             function back() {
                 window.location.href = "home";
             }
-             function doDelete(id)
+            function doDelete(id)
             {
                 var c = confirm("Are you sure?");
-                if(c)
+                if (c)
                 {
-                    window.location.href = "deletecategory?pid="+id;
+                    window.location.href = "deleteaccount?pid=" + id;
                 }
             }
         </script>
@@ -46,13 +50,7 @@
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
-                        <div class="col-sm-6">
-                            <h2>Manager <b>Category</b></h2>
-                        </div>
-                        <div class="col-sm-6">
-                            <a href="#addEmployeeModal"  class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
-					
-                        </div>
+                        <h2>Manage <b>Account</b></h2>   
                     </div>
                 </div>
                 <table class="table table-striped table-hover">
@@ -65,12 +63,15 @@
                                 </span>
                             </th>
                             <th>ID</th>
-                            <th>Name</th>
-                            <th>Actions</th>
+                            <th>User</th>
+                            <th>Pass</th>
+                            <th>IsSell</th>
+                            <th>Active</th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${listCategories}" var="c">
+                        <c:forEach items="${accounts}" var="p">
                             <tr>
                                 <td>
                                     <span class="custom-checkbox">
@@ -78,12 +79,24 @@
                                         <label for="checkbox1"></label>
                                     </span>
                                 </td>
-                                <td>${c.cid}</td>
-                                <td>${c.cname}</td>
-                             
+                                <td>${p.uid}</td>
+                                <td>${p.user}</td>
+                                <td>${p.pass}</td>
+                                <td>${p.isSell}</td>
                                 <td>
-                                    <a href="editcategory?id=${c.cid}"  class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                    <a href="#" class="delete" data-toggle="modal" onclick="doDelete(${c.cid})"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+
+                                    <c:choose>
+                                        <c:when test="${p.active}">
+                                            <i class="bi bi-toggle-on"></i>
+                                        </c:when>    
+                                        <c:otherwise>
+                                            <i class="bi bi-toggle2-off"></i>
+                                        </c:otherwise>
+                                    </c:choose>
+
+                                <td>
+                                    <a href="loadaccount?pid=${p.uid}"  class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                     <a href="#" class="delete" data-toggle="modal" onclick="doDelete(${p.uid})"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -105,36 +118,8 @@
             <a href="#">
                 <button type="button" class="btn btn-primary" onclick="back()">Back to home</button>
 
-        </div>
-        <!-- Edit Modal HTML -->
-        <div id="addEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form action="addcategory" method="post">
-                        <div class="modal-header">						
-                            <h4 class="modal-title">Add Category</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">					
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input name="name" type="text" class="form-control" required >
-                            </div>
-                           
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-success" value="Add">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        
-        
-        
 
 
-        <script src="js/ManagerProduct.js" type="text/javascript"></script>
-    </body>
-</html>
+                <script src="js/ManagerProduct.js" type="text/javascript"></script>
+                </body>
+                </html>

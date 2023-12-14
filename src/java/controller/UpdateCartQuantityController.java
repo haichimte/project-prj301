@@ -5,22 +5,24 @@
 
 package controller;
 
-import dal.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
-import model.Product;
+import jakarta.servlet.http.HttpSession;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import model.Cart;
 
 /**
  *
  * @author Thanh Hai
  */
-public class HomeController extends HttpServlet {
+@WebServlet(name="UpdateCartQuantityController", urlPatterns={"/updatequantity"})
+public class UpdateCartQuantityController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,13 +36,15 @@ public class HomeController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            ProductDBContext db = new ProductDBContext();
-            List<Product> listOld=db.getAllProductsOld();
-            List<Product> listNew=db.getAllProductsLast();
-            request.setAttribute("listOld", listOld);
-            request.setAttribute("listNew", listNew);
-            request.getSession().setAttribute("urlHistory", "home");
-            request.getRequestDispatcher("home.jsp").forward(request, response);
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet UpdateCartQuantityController</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet UpdateCartQuantityController at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     } 
 
@@ -55,7 +59,21 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+         int productId = Integer.parseInt(request.getParameter("productId"));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+            HttpSession session = request.getSession();
+            Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
+            if (carts == null) {
+                carts = new LinkedHashMap<>();
+            }
+            
+            if(carts.containsKey(productId)){
+                carts.get(productId).setQuantity(quantity);
+            }
+            
+            session.setAttribute("carts", carts);
+            response.sendRedirect("cart");
     } 
 
     /** 

@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import model.Account;
 
 /**
@@ -70,6 +72,7 @@ public class login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String user = request.getParameter("Username");
         String pass = request.getParameter("Password");
         AcountDBContext adb = new AcountDBContext();
@@ -80,8 +83,9 @@ public class login extends HttpServlet {
         }else if (a.isActive()== false) {
             request.setAttribute("mess", "Account has been banned");
             request.getRequestDispatcher("login.jsp").forward(request, response);
+             
         }else{
-            HttpSession session = request.getSession();
+            
             session.setAttribute("acc", a);
             response.sendRedirect("home");
         }
@@ -95,5 +99,5 @@ public class login extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+ 
 }

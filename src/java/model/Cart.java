@@ -35,7 +35,7 @@ public class Cart {
 
     public Cart(Product product, int quantity) {
         this.product = product;
-        this.quantity = quantity +  1;
+        this.quantity = quantity ;
     }
     
     

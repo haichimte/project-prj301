@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import model.Account;
 
 /**
@@ -73,11 +75,17 @@ public class SignUp extends HttpServlet {
           String user = request.getParameter("user");
         String pass = request.getParameter("pass");
         String repass = request.getParameter("repass");
+        
         if (!pass.equals(repass)) {
             mess="Password does not match. Please check and try again.";
             request.setAttribute("mess", mess);
             request.getRequestDispatcher("signup.jsp").forward(request, response);
         } else {
+            if (!validatePassword(pass)&&!validatePassword(repass)){
+            mess="Password cần ít nhất  1 chữ hoa,1 chữ thường và số.";
+            request.setAttribute("mess", mess);
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        }
 
             AcountDBContext adb = new AcountDBContext();
             Account a = adb.checkAccountExist(user);
@@ -105,5 +113,13 @@ public class SignUp extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+ public static boolean validatePassword(String password) {
+        // Biểu thức chính quy yêu cầu ít nhất một chữ hoa, một chữ thường và một số
+        String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).+$";
+        
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(password);
 
+        return matcher.matches();
+    }
 }
